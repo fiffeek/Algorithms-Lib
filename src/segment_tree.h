@@ -7,22 +7,23 @@
 #include <iostream>
 
 namespace tree {
-    using ul = unsigned long; // tree's indexes are represented as an unsigned long value for simplicity
+    using ul = unsigned long; // tree's indexes are represented as an unsigned long data_type for simplicity
 
     /**
      * A segment tree class.
-     * @tparam value a type of elements stored in a specific tree,
+     * @tparam data_type a type of elements stored in a specific tree,
      * his class expects that type to be copy assignable and copy contructible.
      *
      * It should be expressed explicitly by concepts when they come in C++20.
      */
-    template<typename value>
+    template<typename data_type>
     class segment_tree {
-        using tree_builder_fn = std::function<value (const value& left, const value& right)>;
+        static_assert(std::is_copy_assignable<data_type>::value && std::is_copy_constructible<data_type>::value);
+        using tree_builder_fn = std::function<data_type (const data_type& left, const data_type& right)>;
         using query_fn = tree_builder_fn;
 
     public:
-        segment_tree(ul desirable_size, value default_value, tree_builder_fn default_function)
+        segment_tree(ul desirable_size, data_type default_value, tree_builder_fn default_function)
                 : dflt(default_value), fn(default_function) {
             if (desirable_size < 1) {
                 throw std::out_of_range("Size of a tree should exceed 1.");
@@ -43,7 +44,7 @@ namespace tree {
          * @param result_function tells the function how to combine the previous
          * value in a leaf with @updater
          */
-        virtual void leaf_update(ul leaf_index, value updater, query_fn result_function) {
+        virtual void leaf_update(ul leaf_index, data_type updater, query_fn result_function) {
             is_in_leaf_bounds(leaf_index);
 
             leaf_index += size; // leafs in a tree are stored at (size, ... , 2 * size - 1) positions
@@ -59,17 +60,17 @@ namespace tree {
         /**
          * Provides a default function to update a leaf that uses @fn
          */
-        virtual void leaf_update(ul leaf_index, value updater) {
+        virtual void leaf_update(ul leaf_index, data_type updater) {
             leaf_update(leaf_index, updater, fn);
         }
 
-        virtual value iterative_query(ul s_index, ul e_index, query_fn result_function) {
+        virtual data_type iterative_query(ul s_index, ul e_index, query_fn result_function) {
             if (s_index > e_index) {
                 return dflt;
             }
 
             s_index += size; e_index += size;
-            value result = dflt;
+            data_type result = dflt;
 
             result = result_function(result, tree[s_index]);
             if (s_index != e_index) {
@@ -92,7 +93,7 @@ namespace tree {
             return result;
         }
 
-        virtual value iterative_query(ul s_index, ul e_index) {
+        virtual data_type iterative_query(ul s_index, ul e_index) {
             return iterative_query(s_index, e_index, fn);
         }
 
@@ -109,13 +110,13 @@ namespace tree {
             }
         }
 
-        value get_leaf_value(ul index) {
+        data_type get_leaf_value(ul index) {
             is_in_leaf_bounds(index);
 
             return get_node_value(index);
         }
 
-        value get_root_value() {
+        data_type get_root_value() {
             return get_node_value(1);
         }
 
@@ -136,7 +137,7 @@ namespace tree {
             return 2 * node + 1;
         }
 
-        value get_node_value(ul index) noexcept {
+        data_type get_node_value(ul index) noexcept {
             return tree[index];
         }
 
@@ -146,9 +147,9 @@ namespace tree {
             }
         }
 
-        value dflt;
+        data_type dflt;
         ul size = 1;
-        std::vector<value> tree; // for convenience purposes a root is stores at index 1
+        std::vector<data_type> tree; // for convenience purposes a root is stores at index 1
         tree_builder_fn fn;
     };
 }
