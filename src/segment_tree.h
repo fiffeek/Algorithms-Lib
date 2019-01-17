@@ -12,7 +12,7 @@ namespace tree {
     /**
      * A segment tree class.
      * @tparam data_type a type of elements stored in a specific tree,
-     * his class expects that type to be copy assignable and copy contructible.
+     * this class expects that type to be copy assignable and copy constructible.
      *
      * It should be expressed explicitly by concepts when they come in C++20.
      */
@@ -64,25 +64,39 @@ namespace tree {
             leaf_update(leaf_index, updater, fn);
         }
 
+        /**
+         * Iterates over a tree in a non-recursive manner, calculating @result_function
+         * over all of the O(log(n)) intervals that [s_index, e_index] is being divided into.
+         * @param s_index a start index for the resulting interval
+         * @param e_index an end index for the resulting interval
+         * @param result_function function to accumulate the result into, the left argument is an accumulator
+         */
         virtual data_type iterative_query(ul s_index, ul e_index, query_fn result_function) {
             if (s_index > e_index) {
-                return dflt;
+                throw std::out_of_range("Indexes are overlapping, a start is greater than the end.");
             }
 
             s_index += size; e_index += size;
             data_type result = dflt;
 
             result = result_function(result, tree[s_index]);
+            // if start index is the same as end index there is no need to do anything with the result
             if (s_index != e_index) {
                 result = result_function(result, tree[e_index]);
             }
 
+            // traverses the tree from both nodes until they meet
             while (s_index / 2 < e_index / 2) {
-                if (!(s_index & 1)) {
+                /* if start index is a left child (so start index is not an odd number) there is a segment match
+                 * so answer is changing because a sibling (the right child of this node's parent) is inside the
+                 * interval */
+                if (!(s_index & (ul) 1)) { // one would be treated as signed integer so there is a need to cast
                     result = result_function(result, tree[s_index + 1]);
                 }
 
-                if (e_index & 1) {
+                /* the same idea as above is written down here, but in this case there is a match when
+                 * the node indicated by the end index is on the even position */
+                if (e_index & (ul) 1) {
                     result = result_function(result, tree[e_index - 1]);
                 }
 
@@ -93,6 +107,7 @@ namespace tree {
             return result;
         }
 
+        /* Query with a result_function set to the default one which is defined in a class. */
         virtual data_type iterative_query(ul s_index, ul e_index) {
             return iterative_query(s_index, e_index, fn);
         }
@@ -119,6 +134,8 @@ namespace tree {
         data_type get_root_value() {
             return get_node_value(1);
         }
+
+        virtual ~segment_tree() = default;
 
     protected:
         void print_range(ul start, ul end) {
