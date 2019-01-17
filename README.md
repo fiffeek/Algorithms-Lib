@@ -15,3 +15,6 @@ that should be featured here.
 - boost test library
 - doxygen
 - cmake
+
+### ChangeLog ###
+- 16.01 - add tree::segment_tree structure with tests and usage (@todo add recursive queries)
