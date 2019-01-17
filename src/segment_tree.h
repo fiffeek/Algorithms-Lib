@@ -23,6 +23,7 @@ namespace tree {
         virtual data_type get_leaf_value(ul index) const = 0;
         virtual data_type get_root_value() const = 0;
         virtual void print_level_by_level() const = 0;
+        virtual ~segment_tree_interface() = default;
     };
 
     /**
