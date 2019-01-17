@@ -18,7 +18,7 @@ namespace tree {
     template<typename data_type>
     class segment_tree_interface {
     public:
-        virtual void leaf_update(ul leaf_index, data_type updater, query_fn<data_type> result_function) = 0;
+        virtual void leaf_update(ul leaf_index, const data_type& updater, query_fn<data_type> result_function) = 0;
         virtual data_type iterative_query(ul s_index, ul e_index, query_fn<data_type> result_function) = 0;
         virtual data_type get_leaf_value(ul index) const = 0;
         virtual data_type get_root_value() const = 0;
@@ -40,7 +40,7 @@ namespace tree {
 
     public:
         segment_tree(const ul desirable_size,
-                     const data_type default_value,
+                     const data_type& default_value,
                      const tree_builder_fn<data_type> default_function)
                 : default_argument(default_value), default_function(default_function) {
             if (desirable_size < 1) {
@@ -62,9 +62,9 @@ namespace tree {
          * @param result_function tells the function how to combine the previous
          * value in a leaf with @updater
          */
-        virtual void leaf_update(ul leaf_index,
-                                 const data_type updater,
-                                 const query_fn<data_type> result_function) {
+        void leaf_update(ul leaf_index,
+                         const data_type& updater,
+                         const query_fn<data_type> result_function) override {
             is_in_leaf_bounds(leaf_index);
 
             leaf_index += size; // leafs in a tree are stored at (size, ... , 2 * size - 1) positions
@@ -80,7 +80,7 @@ namespace tree {
         /**
          * Provides a default function to update a leaf that uses @fn
          */
-        virtual void leaf_update(ul leaf_index, const data_type updater) {
+        virtual void leaf_update(ul leaf_index, const data_type& updater) {
             leaf_update(leaf_index, updater, default_function);
         }
 
@@ -91,7 +91,7 @@ namespace tree {
          * @param e_index an end index for the resulting interval
          * @param result_function function to accumulate the result into, the left argument is an accumulator
          */
-        virtual data_type iterative_query(ul s_index, ul e_index, const query_fn<data_type> result_function) {
+        data_type iterative_query(ul s_index, ul e_index, const query_fn<data_type> result_function) override {
             if (s_index > e_index) {
                 throw std::out_of_range("Indexes are overlapping, a start is greater than the end.");
             }
@@ -136,7 +136,7 @@ namespace tree {
             print_range(0, size);
         }
 
-        virtual void print_level_by_level() const {
+        void print_level_by_level() const override {
             ul level_size = 1;
 
             while (level_size <= size) {
@@ -145,13 +145,13 @@ namespace tree {
             }
         }
 
-        virtual data_type get_leaf_value(const ul index) const {
+        data_type get_leaf_value(const ul index) const override {
             is_in_leaf_bounds(index);
 
             return get_node_value(index);
         }
 
-        virtual data_type get_root_value() const {
+        data_type get_root_value() const override {
             return get_node_value(1);
         }
 
