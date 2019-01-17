@@ -8,5 +8,10 @@ that should be featured here.
 
 <br>
 
-## Currently available ##
+### Currently available ###
 - <a href="https://en.wikipedia.org/wiki/Segment_tree">segment trees</a>
+
+### Technology used ###
+- boost test library
+- doxygen
+- cmake
