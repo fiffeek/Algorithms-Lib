@@ -12,7 +12,7 @@
 constexpr long long MOD = 1000000000;
 
 void k_inversions() {
-    using Tree = tree::segment_tree<unsigned long>;
+    using Tree = algo_lib::tree::segment_tree<unsigned long>;
 
     unsigned long n, k;
     std::cin >> n >> k;
@@ -36,7 +36,7 @@ void k_inversions() {
     for (unsigned long x = 0; x < n; ++x) {
         for (long long j = (long) k - 1; j >= 0; j--) {
             if (j == 0) {
-                trees[j].leaf_update(vi[x] - 1, 1, without_leaf_update);
+                trees[j].update_leaf(vi[x] - 1, 1, without_leaf_update);
                 continue;
             }
 
@@ -45,7 +45,7 @@ void k_inversions() {
                 adder = trees[j - 1].iterative_query(vi[x], n - 1);
             } catch (...) {}
 
-            trees[j].leaf_update(vi[x] - 1, adder, without_leaf_update);
+            trees[j].update_leaf(vi[x] - 1, adder, without_leaf_update);
         }
     }
 
