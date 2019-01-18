@@ -6,7 +6,7 @@
 BOOST_AUTO_TEST_SUITE(simple);
 
     BOOST_AUTO_TEST_CASE(simple_test_case) {
-        using std_segment = tree::segment_tree<int>;
+        using std_segment = algo_lib::tree::segment_tree<int>;
         constexpr int SUM_TREE_SIZE = 10;
         constexpr int SUM_TREE_DFLT = 0;
 
