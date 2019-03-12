@@ -1,4 +1,4 @@
-#include "../segment_tree.h"
+#include "../src/segment_tree.h"
 
 /*
  * Represents a typical segment tree usage.

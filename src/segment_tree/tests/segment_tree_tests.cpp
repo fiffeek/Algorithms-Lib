@@ -1,7 +1,7 @@
 #define BOOST_TEST_MODULE segment_tree
 #include <boost/test/included/unit_test.hpp>
 #include <boost/test/execution_monitor.hpp>
-#include "../segment_tree.h"
+#include "../src/segment_tree.h"
 
 BOOST_AUTO_TEST_SUITE(simple);
 

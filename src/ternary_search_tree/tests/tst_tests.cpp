@@ -1,7 +1,7 @@
 #define BOOST_TEST_MODULE tst_tests
 #include <boost/test/included/unit_test.hpp>
 #include <boost/test/execution_monitor.hpp>
-#include "../ternary_search_tree.h"
+#include "../src/ternary_search_tree.h"
 
 template <typename T>
 using TST = algo_lib::tree::TST<T>;

@@ -1,7 +1,7 @@
 #define BOOST_TEST_MODULE find_union_tests
 #include <boost/test/included/unit_test.hpp>
 #include <boost/test/execution_monitor.hpp>
-#include "../find_union.h"
+#include "../src/find_union.h"
 
 BOOST_AUTO_TEST_SUITE(simple);
 
