@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Change dir
-          command: cd .circleci
+          command: cd .circleci && ls
       - run:
           name: Run tests
           command: ./run_tests.sh
