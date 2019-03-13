@@ -3,10 +3,10 @@ jobs:
   build:
     docker:
       - image: debian:stretch
+    working_directory: ~/project/.circleci/
 
     steps:
       - checkout
-
       - run:
           name: Greeting
-          command: ./run_tests
+          command: ls
