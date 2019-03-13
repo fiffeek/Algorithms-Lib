@@ -9,4 +9,4 @@ jobs:
 
       - run:
           name: Greeting
-          command: echo Hello, world.
+          command: ./run_tests
