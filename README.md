@@ -1,4 +1,7 @@
 # Algorithms-Lib #
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5d90d7cf3e1b4b5f9b55613dc29b7a4e)](https://app.codacy.com/app/vanbinhstudios/Algorithms-Lib?utm_source=github.com&utm_medium=referral&utm_content=fiffeek/Algorithms-Lib&utm_campaign=Badge_Grade_Dashboard)
+
 ## A library for algorithms showcase and usage presentation ##
 
 Currently in development, feel free to suggest data structures
