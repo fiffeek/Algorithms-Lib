@@ -11,4 +11,4 @@ jobs:
           command: cd .circleci
       - run:
           name: Run tests
-          command: sh ./run_tests.sh
+          command: ./run_tests.sh
