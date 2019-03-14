@@ -13,6 +13,7 @@ that should be featured here.
 - <a href="https://en.wikipedia.org/wiki/Segment_tree">segment trees</a>
 - <a href="https://en.wikipedia.org/wiki/Disjoint-set_data_structure">find and union</a>
 - <a href="https://en.wikipedia.org/wiki/Ternary_search_tree">ternary search trees</a> implemented as <a href="https://en.wikipedia.org/wiki/Persistent_data_structure">a persistent tree</a>
+- <a href="https://en.wikipedia.org/wiki/Fenwick_tree">Fenwick tree</a>
 
 ### Technology used ###
 - boost test library
@@ -22,6 +23,11 @@ that should be featured here.
 <br>
 
 ## Changelog ##
+
+## [0.0.2] - 2019-03-13
+### Added
+- fenwick tree implementation with sum operation on a given index and a query which returns the sum of a given interval
+- fenwick tests and usage example 
 
 ## [0.0.2] - 2019-03-12
 ### Changed
