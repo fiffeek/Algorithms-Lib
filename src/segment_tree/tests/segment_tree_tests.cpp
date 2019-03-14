@@ -15,7 +15,7 @@ BOOST_AUTO_TEST_SUITE(simple);
                              [](const int& lhs, const int& rhs) { return lhs + rhs; });
 
         for (int i = 0; i < SUM_TREE_SIZE; ++i) {
-            sum_tree.leaf_update((tree::ul) i, i * i + 2 * i - 5);
+            sum_tree.leaf_update((algo_lib::tree::ul) i, i * i + 2 * i - 5);
         }
 
         BOOST_CHECK_EQUAL(sum_tree.get_root_value(), 325);
